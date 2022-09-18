@@ -88,6 +88,10 @@ RUN DEBIAN_FRONTEND=noninteractive \
   rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 ENV LD_PRELOAD=/usr/local/lib/libjemalloc.so
 
+
+RUN mkdir -p /opt/assets/
+COPY assets/video_placeholder2x.png /opt/assets/
+
 # Server port to listen
 ENV PORT 9000
 

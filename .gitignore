@@ -34,3 +34,7 @@ bin/
 
 imaginary
 bin/imaginary
+
+# ids specific 
+push-to-ecr.sh
+

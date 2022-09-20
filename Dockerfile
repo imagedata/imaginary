@@ -91,6 +91,7 @@ ENV LD_PRELOAD=/usr/local/lib/libjemalloc.so
 
 RUN mkdir -p /opt/assets/
 COPY assets/video_placeholder2x.png /opt/assets/
+COPY assets/Video_Placeholder.jpg /opt/assets/
 
 # Server port to listen
 ENV PORT 9000

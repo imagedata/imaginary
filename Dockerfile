@@ -47,6 +47,7 @@ RUN go mod download
 
 # Copy imaginary sources
 COPY . .
+RUN	go mod download github.com/h2non/bimg
 
 # Run quality control
 RUN go test ./... -test.v -race -test.coverprofile=atomic .

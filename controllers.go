@@ -92,6 +92,25 @@ func imageHandler(w http.ResponseWriter, r *http.Request, buf []byte, operation 
 		}
 	}
 
+    // check for decompression bomb
+    sz,err := bimg.NewImage(buf).Size()
+    if (err != nil) {
+        debug("error getting image size - exit")
+		ErrorReply(r, w, ErrUnsupportedMedia, o)
+		return
+    }
+
+    // if (sz.Width * sz.Height > 300) {
+    if (sz.Width * sz.Height > (bimg.MaxSize() * bimg.MaxSize())) {
+        s := fmt.Sprintf("Image too large at %dx%d - exit", sz.Width,sz.Height )
+        debug(s)
+		ErrorReply(r, w, ErrUnsupportedMedia, o)
+		return
+    } else {
+        s := fmt.Sprintf("Image OK at %dx%d - pass", sz.Width,sz.Height )
+        debug(s)
+    }
+
 	// Use magick to process bmp image
 	if mimeType == "image/bmp" {
 		mimeType = "image/magick"

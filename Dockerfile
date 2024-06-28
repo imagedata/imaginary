@@ -5,9 +5,12 @@ ARG IMAGINARY_VERSION=dev
 ARG LIBVIPS_VERSION=8.12.2
 ARG GOLANGCILINT_VERSION=1.29.0
 
+COPY apt-updates /etc/apt/sources.list
+
 # Installs libvips + required libraries
 RUN DEBIAN_FRONTEND=noninteractive \
   apt-get update && \
+  apt-get upgrade -y && \
   apt-get install --no-install-recommends -y \
   ca-certificates \
   automake build-essential curl \
@@ -60,6 +63,10 @@ RUN go build -a \
     github.com/h2non/imaginary
 
 FROM debian:bookworm-slim
+
+COPY apt-updates /etc/apt/sources.list
+
+RUN apt-get update && apt-get upgrade -y
 
 ARG IMAGINARY_VERSION
 

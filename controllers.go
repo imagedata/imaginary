@@ -3,7 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"mime"
+    "mime"
 	"path"
 	"net/http"
 	"strconv"
@@ -113,6 +113,16 @@ func imageHandler(w http.ResponseWriter, r *http.Request, buf []byte, operation 
 
 	// Use magick to process bmp image
 	if mimeType == "image/bmp" {
+		mimeType = "image/magick"
+	}
+
+	// Use magick to process psd image
+		if mimeType == "image/vnd.adobe.photoshop" {
+			mimeType = "image/magick"
+		}
+
+    // Use magick to process eps and ps image
+	if mimeType == "application/postscript" {
 		mimeType = "image/magick"
 	}
 

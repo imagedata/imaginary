@@ -51,6 +51,7 @@ var (
 	aCpus               = flag.Int("cpus", runtime.GOMAXPROCS(-1), "Number of cpu cores to use")
 	aLogLevel           = flag.String("log-level", "info", "Define log level for http-server. E.g: info,warning,error")
 	aReturnSize         = flag.Bool("return-size", false, "Return the image size in the HTTP headers")
+	aSharpen            = flag.Bool("sharpen", false, "Sharpen the image")
 )
 
 const usage = `imaginary %s
@@ -108,6 +109,7 @@ Options:
   -log-level                 Set log level for http-server. E.g: info,warning,error [default: info].
                              Or can use the environment variable GOLANG_LOG=info.
   -return-size               Return the image size with X-Width and X-Height HTTP header. [default: disabled].
+  -sharpen                   Sharpen the image [default: disabled].
 `
 
 type URLSignature struct {

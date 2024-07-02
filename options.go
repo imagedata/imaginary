@@ -3,7 +3,8 @@ package main
 import (
 	"strconv"
 	"strings"
-
+    "log"
+	// "fmt"
 	"github.com/h2non/bimg"
 )
 
@@ -32,6 +33,7 @@ type ImageOptions struct {
 	NoReplicate   bool
 	NoRotation    bool
 	NoProfile     bool
+	Sharpen      bool
 	StripMetadata bool
 	Opacity       float32
 	Sigma         float64
@@ -62,6 +64,7 @@ type IsDefinedField struct {
 	NoReplicate   bool
 	NoRotation    bool
 	NoProfile     bool
+	Sharpen       bool
 	StripMetadata bool
 	Interlace     bool
 	Palette       bool
@@ -146,11 +149,30 @@ func BimgOptions(o ImageOptions) bimg.Options {
 		Interlace:      o.Interlace,
 		Palette:        o.Palette,
 		Speed:          o.Speed,
+		// Sharpen:        o.Sharpen,
 	}
 
 	if len(o.Background) != 0 {
 		opts.Background = bimg.Color{R: o.Background[0], G: o.Background[1], B: o.Background[2]}
 	}
+
+//	log.Print(o.Sharpen)
+//	log.Print(fmt.Sprintf("Sharpening Setting: %s", o.Sharpen))
+
+	if (o.Sharpen) {
+        log.Print("Sharpening Image")
+		opts.Sharpen = bimg.Sharpen{
+			Radius: 1,
+			X1:     2,
+			Y2:     10,
+			Y3:     20,
+			M1:     0,
+			M2:     3,
+		}
+	} else { 
+		log.Print("Not Sharpening Image")
+	}
+
 
 	if shouldTransformByAspectRatio(opts.Height, opts.Width) && o.AspectRatio != "" {
 		params := make(map[string]interface{})

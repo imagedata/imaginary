@@ -5,12 +5,15 @@ import (
 	"errors"
 	"fmt"
 	"io"
+    // "log"
 	"strings"
 	"io/ioutil"
 	"math"
 	"net/http"
 
 	"github.com/h2non/bimg"
+    // "github.com/davecgh/go-spew/spew"
+
 )
 
 // OperationsMap defines the allowed image transformation operations listed by name.
@@ -432,6 +435,9 @@ func Process(buf []byte, opts bimg.Options) (out Image, err error) {
 			out = Image{}
 		}
 	}()
+
+    // log.Print("Processing Image Now")
+    //  spew.Dump(opts)
 
 	// Resize image via bimg
 	ibuf, err := bimg.Resize(buf, opts)

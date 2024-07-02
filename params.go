@@ -57,6 +57,7 @@ var paramTypeCoercions = map[string]Coercion{
 	"aspectratio": coerceAspectRatio,
 	"palette":     coercePalette,
 	"speed":       coerceSpeed,
+	"sharpen":     coerceSharpen,
 }
 
 func coerceTypeInt(param interface{}) (int, error) {
@@ -355,6 +356,12 @@ func coerceSpeed(io *ImageOptions, param interface{}) (err error) {
 	io.Speed, err = coerceTypeInt(param)
 	return err
 }
+
+func coerceSharpen(io *ImageOptions, param interface{}) (err error) {
+	io.Sharpen, err = coerceTypeBool(param)
+	return err
+}
+
 
 func buildParamsFromOperation(op PipelineOperation) (ImageOptions, error) {
 	var options ImageOptions
